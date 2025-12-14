@@ -1,0 +1,55 @@
+import React from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./Component/Login.jsx";
+import Registeration from "./Component/Registeration.jsx";
+import Header from './User/Header.jsx';
+import Dashboard from './User/Deshboard.jsx';
+import Contact from './Contact.jsx';
+//import Deskboard from './User/Deskboard.jsx';
+
+
+// User Components
+// import Login from "./Component/Login";
+//   import Registeration from "./Component/Registeration";
+// import Profile from './User/Profile';
+// import Orders from './User/Orders';
+// import MedicineDisplay from './User/MedicineDisplay';
+// import Carts from './User/Carts';
+// import Deskboard from './User/Deskboard';
+
+// Admin Components
+// import AdminDeskboard from './Admin/AdminDeskboard';
+// import AdminHeader from './Admin/AdminHeader';
+// import AdminOrder from './Admin/AdminOrder';
+// import CustomerList from './Admin/CustomerList';
+// import Medicine from './Admin/Medicine';
+
+export default function Routerpage() {
+  return (
+    <BrowserRouter>
+      <Routes>
+
+        {/* User Routes */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/registeration" element={<Registeration />} /> 
+        <Route Path="/header" element={<Header/>}/>
+        <Route Path="/deshboard" element={<Dashboard />}/>
+        <Route Path="/contact" element={<Contact />}/>
+
+       {/* <Route path="/Deskboard" element={<Deskboard />} />
+        <Route path="/Orders" element={<Orders />} />
+        <Route path="/Profile" element={<Profile />} />
+        <Route path="/MedicineDisplay" element={<MedicineDisplay />} />
+        <Route path="/Carts" element={<Carts />} />
+
+        {/* Admin Routes */}
+        {/* <Route path="/AdminDeskboard" element={<AdminDeskboard />} />
+        <Route path="/AdminHeader" element={<AdminHeader />} />
+        <Route path="/AdminOrder" element={<AdminOrder />} />
+        <Route path="/CustomerList" element={<CustomerList />} />
+        <Route path="/Medicine" element={<Medicine />} /> */} */
+
+      </Routes>
+    </BrowserRouter>
+  );
+}
