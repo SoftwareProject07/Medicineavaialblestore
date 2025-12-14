@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/headers.module.css";
-
+import "../styles/noscroll.module.css";
 
 export default function Header() {
   const categories = [
@@ -26,12 +26,13 @@ export default function Header() {
   return (
     <>
       {/* NAVBAR */}
-      <nav className="navbar navbar-expand-lg navbar-light bg-light px-3 shadow-sm">
+      <nav className="navbar navbar-expand-lg navbar-light bg-light px-3 shadow-sm w-100">
         <a className="navbar-brand d-flex align-items-center" href="#">
           <img
             src="/AKMedizostore.png"
             alt="AKMedizostore"
-            style={{ width: "40px", height: "40px", marginRight: "8px" }}
+            className="img-fluid"
+            style={{ width: "40px", marginRight: "8px" }}
           />
           AKMedizostore
         </a>
@@ -47,45 +48,28 @@ export default function Header() {
 
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto">
-            <li className="nav-item">
-              <a className="nav-link" href="#top">Home</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#medicineOrder">Medicine Order</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#Aboutn">About</a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="../contact">Contact Us</a>
-            </li>
+            <li className="nav-item"><a className="nav-link" href="#top">Home</a></li>
+            <li className="nav-item"><a className="nav-link" href="#medicineOrder">Medicine Order</a></li>
+            <li className="nav-item"><a className="nav-link" href="#Aboutn">About</a></li>
+            <li className="nav-item"><a className="nav-link" href="#CONTACTUS">Contact Us</a></li>
           </ul>
 
-          <form className="d-flex">
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search Medicines"
-            />
-            <button className="btn btn-outline-success" type="button">
-              Search
-            </button>
-          </form>
+          <div className="d-flex align-items-center gap-3 ms-3">
+            <a href="../login" className="text-primary fw-semibold">Login / Signup</a>
+
+            <a href="#" className="position-relative">
+              🛒
+              <span className="badge bg-danger text-white cart-badge">0</span>
+            </a>
+          </div>
         </div>
       </nav>
 
       {/* HERO SECTION */}
-      <section
-        className="w-100"
-        style={{
-          backgroundColor: "#f5fbff",
-          padding: "40px 0 30px",
-        }}
-        id="top"
-      >
+      <section className="hero-section w-100" id="top">
         <div className="container text-center">
 
-          <h1 className="fw-bold mb-3" style={{ fontSize: "2.2rem" }}>
+          <h1 className="fw-bold mb-3 hero-title">
             Say Goodbye to high medicine prices
           </h1>
 
@@ -107,14 +91,8 @@ export default function Header() {
           </div>
 
           {/* SEARCH BAR */}
-          <div
-            className="mx-auto d-flex align-items-center bg-white shadow-sm rounded-pill"
-            style={{ maxWidth: "700px", padding: "4px 8px" }}
-          >
-            <button
-              className="btn btn-link text-decoration-none text-dark d-flex align-items-center px-3"
-              type="button"
-            >
+          <div className="search-wrapper mx-auto shadow-sm rounded-pill">
+            <button className="btn btn-link text-dark px-3 d-flex align-items-center">
               <span className="me-2">Deliver to</span>
               <span className="fw-semibold">Mumbai, 400001</span>
               <span className="ms-2">&#9662;</span>
@@ -128,90 +106,89 @@ export default function Header() {
               placeholder="Search for medicines"
             />
 
-            <button
-              className="btn btn-primary rounded-circle d-flex align-items-center justify-content-center ms-2"
-              type="button"
-              style={{ width: "42px", height: "42px" }}
-            >
+            <button className="btn btn-primary search-btn" type="button">
               🔍
             </button>
           </div>
 
           {/* ORDER VIA */}
           <div className="mt-5">
-            <p className="text-uppercase text-muted mb-3" style={{ letterSpacing: "2px" }}>
+            <p className="text-uppercase text-muted mb-3 order-title">
               Place your order via
             </p>
+
             <div className="d-flex justify-content-center flex-wrap gap-3">
-              <button className="btn btn-light shadow-sm d-flex align-items-center px-4 py-3">
+
+              {/* Doctor Image */}
+              <button className="btn btn-light shadow-sm order-btn d-flex align-items-center">
+                <img 
+                  src="/doctor.png"
+                  alt="doctor"
+                  style={{ width: "100px", height: "100px", marginRight: "100px" }}
+                />
+              </button>
+
+              {/* Call Button */}
+              <button className="btn btn-light shadow-sm order-btn d-flex align-items-center">
                 📞 Call 08046800924 to place order
               </button>
-              <button className="btn btn-light shadow-sm d-flex align-items-center px-4 py-3">
+
+              {/* Upload Button */}
+              <button className="btn btn-light shadow-sm order-btn">
                 ⬆️ Upload a prescription
               </button>
+
             </div>
           </div>
         </div>
       </section>
 
-      {/* SUBSTITUTE SAVE 51% SECTION (1st Image Copy) */}
-      <section className="container my-5 p-4 shadow-sm rounded" style={{ background: "#fff7e6" }}>
+      {/* SUBSTITUTE SECTION (FULL TRUE-MEDS BLOCK) */}
+      <section className="substitute-box container my-5">
         <div className="row align-items-center">
 
-          <div className="col-md-4 text-center">
-            <img
-              src="/doctorimg.png"
-              alt="doctor"
-              style={{ width: "80%", borderRadius: "10px" }}
-            />
-          </div>
+          {/* LEFT DOCTOR BANNER */}
+          <div className="col-md-5">
+            <div className="doctor-banner">
+              <img src="/doctorpurple.png" className="img-fluid doctor-img" />
 
-          <div className="col-md-8">
-            <h3 className="fw-bold">Substitutes are the smarter choice</h3>
-
-            <div className="row mt-3">
-              <div className="col-4">
-                <h6>🛡 Safe</h6>
-                <p className="text-muted small">FDA & GMP certified</p>
-              </div>
-
-              <div className="col-4">
-                <h6>💊 Same</h6>
-                <p className="text-muted small">Same salt composition</p>
-              </div>
-
-              <div className="col-4">
-                <h6>💰 Savings</h6>
-                <p className="text-muted small">Up to 51% cheaper</p>
-              </div>
-            </div>
-
-            <div className="alert alert-light mt-3 shadow-sm">
-              ⭐ All substitutes made by top 1% medicine manufacturers
-            </div>
-
-            <a href="#" className="fw-bold text-primary">View Example →</a>
-          </div>
-        </div>
-      </section>
-
-      {/* TRENDING OFFERS (2nd Image Style) */}
-      <section className="container my-5">
-        <h3 className="fw-bold mb-3">Top Offers</h3>
-
-        <div className="row g-3">
-
-          <div className="col-md-6">
-            <div className="p-4 rounded" style={{ background: "#fff4e6" }}>
-              <h4>Up to 50% Off</h4>
-              <p className="text-muted">On essential medicines</p>
+              <div className="play-btn">▶</div>
             </div>
           </div>
 
-          <div className="col-md-6">
-            <div className="p-4 rounded" style={{ background: "#e6f7ff" }}>
-              <h4>Flat 26% Cashback</h4>
-              <p className="text-muted">On first order via MobiKwik</p>
+          {/* RIGHT CONTENT */}
+          <div className="col-md-7">
+            <div className="d-flex justify-content-between align-items-start">
+              <h4 className="fw-bold">Substitutes are the smarter choice</h4>
+              <a href="#" className="text-primary fw-semibold">Learn more</a>
+            </div>
+
+            <div className="row mt-3 text-center">
+              <div className="col-4">
+                <img src="/safe.png" className="icon-img" />
+                <h6 className="fw-bold mt-2">Safe</h6>
+                <p className="text-muted small">FDA and GMP certified<br />medicines</p>
+              </div>
+
+              <div className="col-4">
+                <img src="/same.png" className="icon-img" />
+                <h6 className="fw-bold mt-2">Same</h6>
+                <p className="text-muted small">Exact same<br />salt composition</p>
+              </div>
+
+              <div className="col-4">
+                <img src="/savings.png" className="icon-img" />
+                <h6 className="fw-bold mt-2">Savings</h6>
+                <p className="text-muted small">Up to 51%<br />cheaper</p>
+              </div>
+            </div>
+
+            <div className="yellow-box mt-3">
+              ⭐ All Substitutes are made by <b>top 1% medicine manufacturers</b>
+            </div>
+
+            <div className="text-center mt-3">
+              <a href="#" className="text-primary fw-semibold">View Example →</a>
             </div>
           </div>
 
@@ -228,7 +205,7 @@ export default function Header() {
               <div className="card h-100">
                 <img
                   src="https://via.placeholder.com/200"
-                  className="card-img-top"
+                  className="card-img-top img-fluid"
                   alt={med.name}
                 />
                 <div className="card-body d-flex flex-column">
@@ -242,7 +219,9 @@ export default function Header() {
             </div>
           ))}
         </div>
+
       </div>
+
     </>
   );
 }
