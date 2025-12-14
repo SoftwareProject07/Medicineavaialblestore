@@ -12,7 +12,7 @@ import Deshboard from "./Component/User/Deshboard.jsx";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-import Contact from './Component/Contact.jsx/index.js';
+import Contact from './Component/Contact.jsx';
 
 function App() {
   return (

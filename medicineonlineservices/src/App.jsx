@@ -6,7 +6,7 @@ import Login from './Component/Login.jsx'
 import Registeration from  './Component/Registeration.jsx'
 import  Header from './Component/User/Header.jsx'
 import Dashboard from './Component/User/Deshboard.jsx'
-import Contact from './Component/Contact.jsx/index.js'
+import Contact from './Component/Contact.jsx'
 
 function App() {
   const [count, setCount] = useState(0)

@@ -1,6 +1,6 @@
 import React from "react";
-import "../Component/styles/headers.css";
-import "../Component/styles/noscroll.css";
+import "../styles/headers.css";
+import "../styles/noscroll.css";
 
 export default function Header() {
   const categories = [
