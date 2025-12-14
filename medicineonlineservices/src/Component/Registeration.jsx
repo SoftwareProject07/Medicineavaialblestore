@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
-import style from  "../component/styles/registerations.module.css";
+import    "../Component/styles/registerations.css";
 import axios from 'axios';
 
 export default function Registeration() {
@@ -78,7 +78,10 @@ export default function Registeration() {
   };
   return (
     <Fragment>
-      <section className={style.bg} >
+      {/* className={style.bg} */}
+      <div className="bg">
+
+      <section  > 
         <div className="mask d-flex align-items-center h-100 gradient-custom-3">
           <div className="container h-100">
             <div className="row d-flex justify-content-center align-items-center h-100">
@@ -145,6 +148,7 @@ export default function Registeration() {
           </div>
         </div>
       </section>
+      </div>
     </Fragment>
   );
 }

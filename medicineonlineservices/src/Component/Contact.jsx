@@ -1,5 +1,5 @@
 import React from 'react' //rfc
-import "../component/styles/contacts.css";
+import "../Component/styles/contacts.css";
 
 
 
