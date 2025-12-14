@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/headers.css";
+import "../styles/headers.module.css";
 
 
 export default function Header() {

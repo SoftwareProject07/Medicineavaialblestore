@@ -95,8 +95,9 @@ export default function Registeration() {
                       </div>
 
                       <div data-mdb-input-init className="form-outline mb-4">
+                                                <label className="form-label" htmlFor="form3Example3cg">MiddleName</label>
+
                         <input type="text" id="txtMiddleName" className="form-control form-control-lg" onChange={(e) => handleMiddleNameChange(e.target.value)} />
-                        <label className="form-label" htmlFor="form3Example3cg">MiddleName</label>
                       </div>
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input type="text" id="txtLastName" className="form-control form-control-lg" onChange={(e) => handleLastNameChange(e.target.value)} />

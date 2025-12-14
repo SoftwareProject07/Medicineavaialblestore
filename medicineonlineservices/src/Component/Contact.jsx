@@ -1,4 +1,4 @@
-import React from 'react'//rfc
+import React from 'react' //rfc
 import "../component/styles/contacts.css";
 
 
