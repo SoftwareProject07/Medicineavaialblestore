@@ -1,5 +1,5 @@
 import React from "react";
-import "../Component/styles/deshboards.css";
+import "../styles/deshboards.css";
 
 export default function Dashboard() {
   const medicines = [

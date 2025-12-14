@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
-import    "../Component/styles/registerations.css";
+import    "./styles/registerations.css";
 import axios from 'axios';
 
 export default function Registeration() {
