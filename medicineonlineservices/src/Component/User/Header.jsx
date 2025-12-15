@@ -51,7 +51,7 @@ export default function Header() {
             <li className="nav-item"><a className="nav-link" href="#top">Home</a></li>
             <li className="nav-item"><a className="nav-link" href="#medicineOrder">Medicine Order</a></li>
             <li className="nav-item"><a className="nav-link" href="#Aboutn">About</a></li>
-            <li className="nav-item"><a className="nav-link" href="#CONTACTUS">Contact Us</a></li>
+            <li className="nav-item"><a className="nav-link" href="/contact">Contact Us</a></li>
           </ul>
 
           <div className="d-flex align-items-center gap-3 ms-3">
