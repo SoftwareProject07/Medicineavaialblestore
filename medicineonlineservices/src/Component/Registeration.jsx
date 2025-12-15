@@ -35,12 +35,10 @@ export default function Registeration() {
         data,
         { headers: { "Content-Type": "application/json" } }
       )
-    .then((response) => {
-  console.log(response.data);
-  alert("Registration Successful!");
-  navigate("/login");
-})
-
+      .then((response) => {
+        alert("Registration Successful!");
+        navigate("/login");
+      })
       .catch((error) => {
         if (error.response?.data) {
           alert(JSON.stringify(error.response.data));
@@ -63,14 +61,14 @@ export default function Registeration() {
           <div className="mask d-flex align-items-center h-100 gradient-custom-3">
             <div className="container h-100">
               <div className="row d-flex justify-content-center align-items-center h-100">
-                <div className="col-12 col-md-9  col-xl-6">
+                <div className="col-12 col-md-9 col-lg-7 col-xl-6">
                   <div className="card" style={{ borderRadius: "15px" }}>
-                    <div className="card-body ">
-                      <h2 className="text-uppercase text-center ">
+                    <div className="card-body p-5">
+                      <h2 className="text-uppercase text-center mb-5">
                         Create an account
                       </h2>
 
-                      <div className="form-outline ">
+                      <div className="form-outline mb-4">
                         <label className="form-label">First Name</label>
                         <input
                           type="text"
@@ -80,7 +78,7 @@ export default function Registeration() {
                         />
                       </div>
 
-                      <div className="form-outline ">
+                      <div className="form-outline mb-4">
                         <label className="form-label">Middle Name</label>
                         <input
                           type="text"
@@ -90,7 +88,7 @@ export default function Registeration() {
                         />
                       </div>
 
-                      <div className="form-outline ">
+                      <div className="form-outline mb-4">
                         <label className="form-label">Last Name</label>
                         <input
                           type="text"
@@ -100,7 +98,7 @@ export default function Registeration() {
                         />
                       </div>
 
-                      <div className="form-outline ">
+                      <div className="form-outline mb-4">
                         <label className="form-label">Password</label>
                         <input
                           type="password"
@@ -110,7 +108,7 @@ export default function Registeration() {
                         />
                       </div>
 
-                      <div className="form-outline">
+                      <div className="form-outline mb-4">
                         <label className="form-label">Email</label>
                         <input
                           type="email"
@@ -120,12 +118,6 @@ export default function Registeration() {
                         />
                       </div>
 
- <div class="form-check d-flex justify-content-center ">
-                  <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3cg" />
-                  <label class="form-check-label" for="form2Example3g">
-                    I agree all statements in <a href="#!" class="text-body"><u>Terms of service</u></a>
-                  </label>
-                </div>
                       <div className="d-flex justify-content-center">
                         <button
                           type="button"
@@ -136,7 +128,7 @@ export default function Registeration() {
                         </button>
                       </div>
 
-                      <p className="text-center text-muted ">
+                      <p className="text-center text-muted mt-4">
                         Have already an account?{" "}
                         <Link to="/login">
                           <u>Login here</u>
