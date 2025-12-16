@@ -2,7 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./styles/registerations.css";
 import axios from "axios";
-import API from "../src/Services/API.JS";
+import API from "../src/Services/API.jsx";
 
 export default function Registeration() {
   const navigate = useNavigate();
@@ -29,16 +29,16 @@ export default function Registeration() {
   //     Type: type,
   //     CreateOn: createon
   //   };
-const handleSubmit = async () => {
+const handleSave = async () => {
   const data = {
     FirstName: firstname,
     MiddleName: middlename,
     LastName: lastname,
     Password: password,
     Email: email,
-    Fund: 0,
-    Type: "",
-    CreateOn: null,
+    Fund: found,
+    Type: type,
+    CreateOn: createon,
   };
 
   //   axios
