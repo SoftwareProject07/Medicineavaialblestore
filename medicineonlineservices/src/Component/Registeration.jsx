@@ -2,6 +2,7 @@ import React, { Fragment, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./styles/registerations.css";
 import axios from "axios";
+import API from "../src/Services/API.JS";
 
 export default function Registeration() {
   const navigate = useNavigate();
@@ -17,36 +18,60 @@ export default function Registeration() {
   const [type] = useState("");
   const [createon] = useState(null);
 
-  const handleSave = () => {
-    const data = {
-      FirstName: firstname,
-      MiddleName: middlename,
-      LastName: lastname,
-      Password: password,
-      Email: email,
-      Fund: found,
-      Type: type,
-      CreateOn: createon
-    };
-
-    axios
-      .post(
-        "http://localhost:5256/api/USERMEDICINE/CREATERegisterUser",
-        data,
-        { headers: { "Content-Type": "application/json" } }
-      )
-      .then((response) => {
-        alert("Registration Successful!");
-        navigate("/login");
-      })
-      .catch((error) => {
-        if (error.response?.data) {
-          alert(JSON.stringify(error.response.data));
-        } else {
-          alert("Server error");
-        }
-      });
+  // const handleSave = () => {
+  //   const data = {
+  //     FirstName: firstname,
+  //     MiddleName: middlename,
+  //     LastName: lastname,
+  //     Password: password,
+  //     Email: email,
+  //     Fund: found,
+  //     Type: type,
+  //     CreateOn: createon
+  //   };
+const handleSubmit = async () => {
+  const data = {
+    FirstName: firstname,
+    MiddleName: middlename,
+    LastName: lastname,
+    Password: password,
+    Email: email,
+    Fund: 0,
+    Type: "",
+    CreateOn: null,
   };
+
+  //   axios
+  //     .post(
+  //       "http://localhost:5256/api/USERMEDICINE/CREATERegisterUser",
+  //       data,
+  //       { headers: { "Content-Type": "application/json" } }
+  //     )
+  //     .then((response) => {
+  //       alert("Registration Successful!");
+  //       navigate("/login");
+  //     })
+  //     .catch((error) => {
+  //       if (error.response?.data) {
+  //         alert(JSON.stringify(error.response.data));
+  //       } else {
+  //         alert("Server error");
+  //       }
+  //     });
+  // };
+
+    try {
+    const res = await API.post(
+      "/api/USERMEDICINE/CREATERegisterUser",
+      data
+    );
+
+    alert(res.data.message);
+  } catch (err) {
+    console.error(err);
+    alert("API Error");
+  }
+};
 
   return (
     <Fragment>
