@@ -1,8 +1,8 @@
 import React, { Fragment, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./styles/registerations.css";
-import axios from "axios";
-import API from "../src/Services/API.jsx";
+//import axios from "axios";
+import API from "../Services/API";
 
 export default function Registeration() {
   const navigate = useNavigate();

@@ -13,12 +13,14 @@ import Deshboard from "./Component/User/Deshboard.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Contact from './Component/Contact.jsx';
+// import App from "./App";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/header" />} />
+        {/* <Route path="/" element={<header />} /> */}
 
         <Route path="/login" element={<Login />} />
         <Route path="/registeration" element={<Registeration />} />
