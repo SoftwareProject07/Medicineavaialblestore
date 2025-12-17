@@ -44,16 +44,15 @@ export default function Registeration() {
     };
 
     try {
-      await axios.post(
-        "https://ecommerencesite-api.onrender.com/api/USERMEDICINE/CREATERegisterUser",
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
+     await axios.post(
+  "https://ecommerencesite-api.onrender.com/api/USERMEDICINE/CREATERegisterUser",
+  data,
+  {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }
+);
       alert("Registration Successful");
       navigate("/login");
     } catch (error) {
