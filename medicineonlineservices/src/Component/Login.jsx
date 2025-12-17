@@ -28,7 +28,7 @@ export default function Login() {
       )
       .then((response) => {
         alert("Login Successful!");
-        navigate("/header");
+        navigate("/deshboard");
       })
       .catch((error) => {
         if (error.response) {

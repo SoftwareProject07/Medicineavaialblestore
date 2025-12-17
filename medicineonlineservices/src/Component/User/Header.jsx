@@ -55,7 +55,7 @@ export default function Header() {
           </ul>
 
           <div className="d-flex align-items-center gap-3 ms-3">
-            <a href="../login" className="text-primary fw-semibold">Login / Signup</a>
+            <a href="/login" className="text-primary fw-semibold">Login / Signup</a>
 
             <a href="#" className="position-relative">
               🛒
