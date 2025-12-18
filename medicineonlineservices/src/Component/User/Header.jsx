@@ -61,8 +61,8 @@ export default function Header() {
 </li>
           </ul>
 
-          <div className="d-flex align-items-center gap-3 ms-3">
-            <a href="/login" className="text-primary fw-semibold">Login / Signup</a>
+       <div className="d-flex align-items-center gap-3 ms-3">
+            {/*    <a href="/login" className="text-primary fw-semibold">Login / Signup</a> */}
    <li className="nav-item">
   <Link className="text-primary fw-semibold" to="/login">
 Login / Signup  </Link>
