@@ -14,9 +14,9 @@ export default function Registeration() {
   const [email, setEmail] = useState("");
 
   // ✅ decimal safe
-  const [found] = useState(0);
-  const [type] = useState("");
-  const [createon] = useState(null);
+  const [found, setFound] = useState(0);
+  const [type,setType] = useState("");
+  const [createon,setCreateOn] = useState(null);
 
   // const handleSave = () => {
   //   const data = {
@@ -44,8 +44,10 @@ export default function Registeration() {
     };
 
     try {
+      // https://ecommerencesite-api.onrender.com/api/USERMEDICINE/CREATERegisterUser
      await axios.post(
-  "https://ecommerencesite-api.onrender.com/api/USERMEDICINE/CREATERegisterUser",
+  "http://localhost:5256/api/USERMEDICINE/CREATERegisterUser",
+
   data,
   {
     headers: {
@@ -111,6 +113,11 @@ export default function Registeration() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
+                  <input type="hidden"  value={found} onChange={(e)=>setFound(e.target.value)}  />
+                                    <input type="hidden"  value={type} onChange={(e)=>setType(e.target.value)}  />
+                                    <input type="hidden"  value={createon} onChange={(e)=>setCreateOn(e.target.value)}  />
+
+
 
                   <button
                     type="button"
