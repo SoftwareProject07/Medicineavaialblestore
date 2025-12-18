@@ -1,5 +1,7 @@
 import React from "react";
 import "../styles/headers.css";
+import { Link } from "react-router-dom";
+
 // import "../styles/noscroll.css";
 
 export default function Header() {
@@ -52,6 +54,11 @@ export default function Header() {
             <li className="nav-item"><a className="nav-link" href="#medicineOrder">Medicine Order</a></li>
             <li className="nav-item"><a className="nav-link" href="#Aboutn">About</a></li>
             <li className="nav-item"><a className="nav-link" href="/contact">Contact Us</a></li>
+            <li className="nav-item">
+  <Link className="nav-link" to="/contact">
+    Contact Us
+  </Link>
+</li>
           </ul>
 
           <div className="d-flex align-items-center gap-3 ms-3">
