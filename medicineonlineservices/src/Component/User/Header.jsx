@@ -53,7 +53,7 @@ export default function Header() {
             <li className="nav-item"><a className="nav-link" href="#top">Home</a></li>
             <li className="nav-item"><a className="nav-link" href="#medicineOrder">Medicine Order</a></li>
             <li className="nav-item"><a className="nav-link" href="#Aboutn">About</a></li>
-            <li className="nav-item"><a className="nav-link" href="/contact">Contact Us</a></li>
+            {/* <li className="nav-item"><a className="nav-link" href="/contact">Contact Us</a></li> */}
             <li className="nav-item">
   <Link className="nav-link" to="/contact">
     Contact Us
@@ -63,7 +63,10 @@ export default function Header() {
 
           <div className="d-flex align-items-center gap-3 ms-3">
             <a href="/login" className="text-primary fw-semibold">Login / Signup</a>
-
+   <li className="nav-item">
+  <Link className="text-primary fw-semibold" to="/login">
+Login / Signup  </Link>
+</li>
             <a href="#" className="position-relative">
               🛒
               <span className="badge bg-danger text-white cart-badge">0</span>
