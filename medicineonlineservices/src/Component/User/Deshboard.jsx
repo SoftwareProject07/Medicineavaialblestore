@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/deshboards.css";
+import { Link } from "react-router-dom";
 
 export default function Dashboard() {
   const medicines = [
@@ -29,7 +30,15 @@ export default function Dashboard() {
           <li><i className="bi bi-cart"></i> Orders</li>
           <li><i className="bi bi-bag"></i> Cart</li>
           <li><i className="bi bi-person"></i> Profile</li>
-          <li><i className="bi bi-power"  ></i><a href="../login">Logout  </a></li>
+          {/* <li><i className="bi bi-power"  ></i><a href="../login">Logout  </a></li> */}
+            {/* <div className="d-flex align-items-center gap-3 ms-3"> */}
+            {/*    <a href="/login" className="text-primary fw-semibold">Login / Signup</a> */}
+   <li className="nav-item">
+    <i className="bi bi-power"  ></i>
+  <Link className="text-primary fw-semibold" to="/login">
+Logout  </Link>
+</li>
+{/* </div> */}
         </ul>
       </div>
 
