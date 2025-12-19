@@ -31,38 +31,39 @@ export default function Registeration() {
   //   };
 
   // ✅ FINAL SAVE FUNCTION
-  const handleSave = async () => {
-    const data = {
-      FirstName: firstname,
-      MiddleName: middlename,
-      LastName: lastname,
-      Password: password,
-      Email: email,
-      Fund: found,
-      Type: type,
-      CreateOn: createon,
-    };
-
-    try {
-      // https://ecommerencesite-api.onrender.com/api/USERMEDICINE/CREATERegisterUser
-     await axios.post(
-  "https://ecommerencesite-api.onrender.com/api/USERMEDICINE/CREATERegisterUser",
-
-
-  data,
-  {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }
-);
-      alert("Registration Successful");
-      navigate("/login");
-    } catch (error) {
-      console.error(error);
-      alert("API Error");
-    }
+const handleSave = async () => {
+  const data = {
+    FirstName: firstname,
+    MiddleName: middlename,
+    LastName: lastname,
+    Password: password,
+    Email: email,
+    Fund: 0,
+    Type: "User",
+    CreateOn: new Date().toISOString(), // ✅ VERY IMPORTANT
   };
+
+  try {
+    const response = await axios.post(
+      "https://ecommerencesite-api.onrender.com/api/USERMEDICINE/CREATERegisterUser",
+      data,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log("API Response:", response.data);
+
+    alert("Registration Successful");
+    navigate("/login");
+  } catch (error) {
+    console.error("API Error:", error.response?.data || error.message);
+    alert("Registration Failed");
+  }
+};
+
 
   return (
     <Fragment>
