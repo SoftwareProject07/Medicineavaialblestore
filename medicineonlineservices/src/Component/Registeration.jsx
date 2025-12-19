@@ -46,7 +46,8 @@ export default function Registeration() {
     try {
       // https://ecommerencesite-api.onrender.com/api/USERMEDICINE/CREATERegisterUser
      await axios.post(
-  "http://localhost:5256/api/USERMEDICINE/CREATERegisterUser",
+  "https://ecommerencesite-api.onrender.com/api/USERMEDICINE/CREATERegisterUser",
+
 
   data,
   {
