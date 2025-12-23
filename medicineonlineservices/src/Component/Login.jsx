@@ -1,7 +1,7 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import    "./styles/logins.css";   // ✅ Correct CSS import
+import "./styles/logins.css";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -10,75 +10,98 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   const handleSave = () => {
+    // 🔹 Blank check
     if (email.trim() === "" || password.trim() === "") {
-      prompt("Please enter Email and Password!");
+      alert("Please enter Email and Password");
       return;
     }
 
+    // 🔹 Email format check
+    // const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // if (!emailPattern.test(email)) {
+    //   alert("Please enter a valid Email ID");
+    //   return;
+    // }
+
+    // // 🔹 Password length check
+    // if (password.length < 6) {
+    //   alert("Password must be at least 6 characters");
+    //   return;
+    // }
+
+    // ✅ API Data
     const data = {
       Email: email,
       Password: password,
     };
 
+    console.log("Sending 👉", data);
+
     axios
       .post(
-        // "http://localhost:5256/api/USERMEDICINE/LOGINUserMedicine",
-       "https://ecommerencesite-api.onrender.com/api/USERMEDICINE/LOGINUserMedicine",
+        "https://ecommerencesite-api.onrender.com/api/USERMEDICINE/LOGINUserMedicine",
         data,
         { headers: { "Content-Type": "application/json" } }
       )
       .then((response) => {
-        alert("Login Successful!");
-        navigate("/deshboard");
+        console.log("Response 👉", response.data);
+
+       if (
+  response.data.isSuccess === true ||
+  response.data.success === true ||
+  response.data.status === true
+) {
+  alert("Login Successful ✅");
+  navigate("/deshboard");
+}
+ else {
+          alert(
+            response.data.responseMessage ||
+              response.data.message ||
+              "Invalid Email or Password"
+          );
+        }
       })
       .catch((error) => {
-        if (error.response) {
-          alert("Error: " + error.response.data.responseMessage);
-        } else if (error.request) {
-          alert("No response from server!");
-        } else {
-          alert("Request Error: " + error.message);
-        }
+        console.error("API Error 👉", error);
+        alert("Server error, please try again later");
       });
   };
 
   return (
-      
-        <div className="login-container">
+    <div className="login-container">
+      <div className="login-box">
+        <h2 className="login-title">Login</h2>
 
-          <div className="login-box">
-            <h2 className="login-title">Login</h2>
-
-            <div className="input-group">
-              <label>Email</label>
-              <input
-                type="email"
-                placeholder="Enter Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-
-            <div className="input-group">
-              <label>Password</label>
-              <input
-                type="password"
-                placeholder="Enter Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-
-            <button className="login-btn" onClick={handleSave}>
-              Login
-            </button>
-
-            <p className="register-text">
-              Don't have an account?
-              <Link to="/registeration"> Register </Link>
-            </p>
-
-          </div>
+        <div className="input-group">
+          <label>Email</label>
+          <input
+            type="email"
+            placeholder="Enter Email"
+            value={email}  
+            onChange={(e) => setEmail(e.target.value) }  required
+          />
         </div>
+
+        <div className="input-group">
+          <label>Password</label>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}  
+          />
+        </div>
+
+        <button className="login-btn" onClick={handleSave}>
+          Login
+        </button>
+
+        <p className="register-text">
+          Don't have an account?
+          <Link to="/registeration"> Register </Link>
+        </p>
+      </div>
+    </div>
   );
 }

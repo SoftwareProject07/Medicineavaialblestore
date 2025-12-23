@@ -5,6 +5,7 @@ import Registeration from "./Component/Registeration.jsx";
 import Header from "./Component/User/Header.jsx";
 import Deshboard from "./Component/User/Deshboard.jsx";
 import Contact from "./Component/Contact.jsx";
+import Medicine from "./Component/Admin/Medicine.jsx";
 
 function App() {
   return (
@@ -14,7 +15,10 @@ function App() {
       <Route path="/registeration" element={<Registeration />} />
       <Route path="/header" element={<Header />} />
       <Route path="/deshboard" element={<Deshboard />} />
+        <Route path="/deshboard/medicines" element={<Medicine />} />
+
       <Route path="/contact" element={<Contact />} />
+      
     </Routes>
   );
 }

@@ -5,6 +5,7 @@ import Registeration from "./Component/Registeration.jsx";
 import Header from './User/Header.jsx';
 import Dashboard from './User/Deshboard.jsx';
 import Contact from './Contact.jsx';
+import Medicine from "./Admin/Medicine.jsx";
 
 //import Deskboard from './User/Deskboard.jsx';
 
@@ -36,6 +37,7 @@ export default function Routerpage() {
         <Route Path="/header" element={<Header/>}/>
         <Route Path="/deshboard" element={<Dashboard />}/>
         <Route Path="/contact" element={<Contact />}/>
+        <Route Path="/deshboard/medicines" element={<Medicine />} />
 
        {/* <Route path="/Deskboard" element={<Deskboard />} />
         <Route path="/Orders" element={<Orders />} />

@@ -63,10 +63,13 @@ export default function Header() {
 
        <div className="d-flex align-items-center gap-3 ms-3">
             {/*    <a href="/login" className="text-primary fw-semibold">Login / Signup</a> */}
-   <li className="nav-item">
-  <Link className="text-primary fw-semibold" to="/login">
-Login / Signup  </Link>
-</li>
+   {/* <li className="nav-item"> */}
+<Link to="/login" className="btn btn-success">
+Login / Signup
+        </Link>
+
+
+{/* </li> */}
             <a href="#" className="position-relative">
               🛒
               <span className="badge bg-danger text-white cart-badge">0</span>
