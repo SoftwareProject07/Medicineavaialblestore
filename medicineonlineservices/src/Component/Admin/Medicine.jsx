@@ -14,12 +14,13 @@ export default function Medicine() {
   const [expiryDate, setExpiryDate] = useState(""); // ✅ FIX
 
   const handleSave = async () => {
-    if (!name || !manufacturer || !unitPrice || !quantity || !expiryDate) {
+    if ( !name || !manufacturer || !unitPrice || !quantity || !expiryDate) {
       alert("Please fill all required fields");
       return;
     }
 
     const data = {
+      //Id:id,
       name: name,
       manufacturer: manufacturer,
       unitPrice: Number(unitPrice),
@@ -31,8 +32,7 @@ export default function Medicine() {
 
     try {
       await axios.post(
-       // "https://ecommerencesite-api.onrender.com/api/MEDICINE/CreateMedicine",
-      //  "http://localhost:5256/api/MEDICINE/CreateMedicine",
+      
       "https://ecommerencesite-api.onrender.com/api/MEDICINE/CreateMedicine",
 
         data,
@@ -63,6 +63,9 @@ export default function Medicine() {
           <button className="btn btn-success w-100" onClick={handleSave}>
             Add Medicine
           </button>
+
+
+          
         </fieldset>
       </div>
     </Fragment>

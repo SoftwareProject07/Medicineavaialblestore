@@ -6,6 +6,7 @@ import Header from './User/Header.jsx';
 import Dashboard from './User/Deshboard.jsx';
 import Contact from './Contact.jsx';
 import Medicine from "./Admin/Medicine.jsx";
+import UpdateMedicine from './Admin/UpdateMedicine.jsx';
 
 //import Deskboard from './User/Deskboard.jsx';
 
@@ -38,6 +39,7 @@ export default function Routerpage() {
         <Route Path="/deshboard" element={<Dashboard />}/>
         <Route Path="/contact" element={<Contact />}/>
         <Route Path="/deshboard/medicines" element={<Medicine />} />
+        <Route path="/updatemedicines" element={<UpdateMedicine />} />
 
        {/* <Route path="/Deskboard" element={<Deskboard />} />
         <Route path="/Orders" element={<Orders />} />

@@ -1,10 +1,14 @@
+//Deshboard--correct 
 import React, { useEffect, useState } from "react";
 import "../styles/deshboards.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
+// import UpdateMedicine from './Admin/UpdateMedicine.jsx';
 
 export default function Dashboard() {
 const [medicines, setMedicines] = useState([]);
+  
+
 
   // 🔹 Normalize API response (PascalCase + camelCase fix)
   const normalize = (list) =>
@@ -37,6 +41,36 @@ const [medicines, setMedicines] = useState([]);
         setMedicines([]);
       });
   }, []);
+
+  
+ //DELETE FUNCTION (component ke ANDAR)
+ const handleDelete = async (id) => {
+  if (!window.confirm("Are you sure?")) return;
+
+  try {
+    //const res = await axios.delete(
+     // `http://localhost:5256/api/MEDICINE/DeleteMedicine/${id}`
+     const res = await axios.delete(
+  "http://localhost:5256/api/MEDICINE/DeleteMedicine/" + id
+);
+
+    // );
+
+    if (res.data.status) {
+      setMedicines((prev) => prev.filter((m) => m.id !== id));
+      alert("Deleted successfully");
+    } else {
+      alert(res.data.responseMessage);
+    }
+  } catch (error) {
+    console.error("Delete error:", error);
+    alert("Delete failed");
+  }
+};
+
+
+
+  
 
 
   return (
@@ -112,16 +146,16 @@ const [medicines, setMedicines] = useState([]);
         <tbody>
   {medicines.length === 0 ? (
     <tr>
-      <td colSpan="6" className="text-center">
+      <td colSpan="10" className="text-center">
         No medicines found
       </td>
     </tr>
   ) : (
     medicines.map((med) => (
                 <tr key={med.id}>
-        <td>{med.name}</td>
+                   <td>{med.name}</td>
                   <td>{med.manufacturer}</td>
-                  <td>₹ {med.unitPrice}</td>
+                  <td>{med.unitPrice}</td>
                   <td>{med.discount}</td>
                   <td>{med.quantity}</td>
                   <td>
@@ -133,8 +167,23 @@ const [medicines, setMedicines] = useState([]);
 
 
                   <td>
-                  <button className="btn btn-primary btn-sm me-2">Edit</button> ||
-                  <button className="btn btn-danger btn-sm">Delete</button>
+               
+                     <button
+                  className="btn btn-primary btn-sm"
+                  onClick={() => handleEditClick(medicine)}
+                >
+                  Edit
+                </button>
+                    
+                    ||
+                  {/* <button className="btn btn-danger btn-sm">Delete</button> */}
+       <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() => handleDelete(med.id)}
+                    >
+                      Delete
+                    </button>
+
                 </td>
       </tr>
     ))
@@ -142,9 +191,11 @@ const [medicines, setMedicines] = useState([]);
 </tbody>
 
         </table>
+      
 
       </div>
-      
+
     </div>
   );
 }
+      
