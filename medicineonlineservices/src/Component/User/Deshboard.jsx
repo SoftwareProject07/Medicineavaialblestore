@@ -51,7 +51,7 @@ const [medicines, setMedicines] = useState([]);
     //const res = await axios.delete(
      // `http://localhost:5256/api/MEDICINE/DeleteMedicine/${id}`
      const res = await axios.delete(
-  "http://localhost:5256/api/MEDICINE/DeleteMedicine/" + id
+  "https://ecommerencesite-api.onrender.com/api/MEDICINE/DeleteMedicine/" + id
 );
 
     // );
