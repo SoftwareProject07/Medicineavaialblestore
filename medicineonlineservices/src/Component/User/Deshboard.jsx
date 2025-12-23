@@ -88,8 +88,14 @@ const [medicines, setMedicines] = useState([]);
           </Link>
         </div>
 
-        {/* ---------- TABLE ---------- */}
+        {/* ---------- searchbar ---------- */}
+
+         <div className="search-box">
+          <input type="text" placeholder="Search..." />
+          <i className="bi bi-search"></i>
+        </div>
        {/* ---------- TABLE ---------- */}
+
         <table className="table align-middle table-hover">
           <thead>
             <tr>
