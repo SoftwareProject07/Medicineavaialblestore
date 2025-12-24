@@ -2,8 +2,12 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import "./styles/logins.css";
+localStorage.setItem("token", response.token);
+
 
 export default function Login() {
+  const token = localStorage.getItem("token");
+
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
