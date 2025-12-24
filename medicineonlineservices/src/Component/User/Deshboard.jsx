@@ -289,8 +289,8 @@ export default function Dashboard() {
                           className="btn btn-success btn-sm"
                           onClick={() => handleUpdate(med.id)}
                         >
-                          Update Medicine
-                        </button>{" "}
+                          Update 
+                        </button>{" "} ||
                         <button
                           className="btn btn-secondary btn-sm"
                           onClick={() => setEditingMedicine(null)}
