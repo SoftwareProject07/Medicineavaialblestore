@@ -79,3 +79,36 @@ table {
   border-radius: 10px;
   overflow: hidden;
 }
+ /* exta css add --edit field  extra length open  */
+
+ /* 🔹 Edit mode inputs control */
+.table input {
+  width: 100%;
+  max-width: 140px;   /* 🔥 important */
+  padding: 4px 6px;
+  font-size: 13px;
+  box-sizing: border-box;
+}
+
+/* 🔹 Date input thoda chhota */
+.table input[type="date"] {
+  max-width: 150px;
+}
+
+/* 🔹 Action buttons spacing */
+.table td button {
+  white-space: nowrap;
+}
+.table {
+  table-layout: fixed;   /* 🔥 magic */
+  width: 100%;
+}
+.table th,
+.table td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.editing-row {
+  background-color: #f3f3f3;
+}

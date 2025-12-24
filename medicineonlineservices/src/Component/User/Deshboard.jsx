@@ -1,16 +1,23 @@
-//Deshboard--correct 
 import React, { useEffect, useState } from "react";
 import "../styles/deshboards.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
-// import UpdateMedicine from './Admin/UpdateMedicine.jsx';
 
 export default function Dashboard() {
-const [medicines, setMedicines] = useState([]);
-  
+  const [medicines, setMedicines] = useState([]);
+  const [editingMedicine, setEditingMedicine] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
+  const [formData, setFormData] = useState({
+    name: "",
+    manufacturer: "",
+    unitPrice: "",
+    discount: "",
+    quantity: "",
+    expiryDate: "",
+  });
 
-  // 🔹 Normalize API response (PascalCase + camelCase fix)
+  // 🔹 Normalize API response
   const normalize = (list) =>
     list.map((m) => ({
       id: m.id ?? m.Id,
@@ -22,77 +29,119 @@ const [medicines, setMedicines] = useState([]);
       expiryDate: m.expiryDate ?? m.ExpiryDate,
     }));
 
+  // 🔹 GET MEDICINES
   useEffect(() => {
     axios
-      // .get("http://localhost:5256/api/MEDICINE/AllListMedicineProduct")
-            .get("https://ecommerencesite-api.onrender.com/api/MEDICINE/AllListMedicineProduct")
-
+      .get(
+        "https://ecommerencesite-api.onrender.com/api/MEDICINE/AllListMedicineProduct"
+      )
       .then((res) => {
-        console.log("API RESPONSE:", res.data);
-
         const list = Array.isArray(res.data)
           ? res.data
           : res.data?.data;
-
         setMedicines(Array.isArray(list) ? normalize(list) : []);
       })
-      .catch((err) => {
-        console.error("API ERROR:", err);
-        setMedicines([]);
-      });
+      .catch(() => setMedicines([]));
   }, []);
 
-  
- //DELETE FUNCTION (component ke ANDAR)
- const handleDelete = async (id) => {
-  if (!window.confirm("Are you sure?")) return;
+  // 🔹 SEARCH FILTER
+  const filteredMedicines = medicines.filter(
+    (med) =>
+      med.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      med.manufacturer.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-  try {
-    //const res = await axios.delete(
-     // `http://localhost:5256/api/MEDICINE/DeleteMedicine/${id}`
-     const res = await axios.delete(
-  "https://ecommerencesite-api.onrender.com/api/MEDICINE/DeleteMedicine/" + id
-);
+  // 🔹 EDIT CLICK
+  const handleEditClick = (med) => {
+    setEditingMedicine(med.id);
+    setFormData({
+      name: med.name,
+      manufacturer: med.manufacturer,
+      unitPrice: med.unitPrice,
+      discount: med.discount,
+      quantity: med.quantity,
+      expiryDate: med.expiryDate?.split("T")[0],
+    });
+  };
 
-    // );
+  // 🔹 INPUT CHANGE
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-    if (res.data.status) {
-      setMedicines((prev) => prev.filter((m) => m.id !== id));
-      alert("Deleted successfully");
-    } else {
-      alert(res.data.responseMessage);
+  // 🔹 UPDATE MEDICINE
+  const handleUpdate = async (id) => {
+    try {
+      const payload = {
+        Id: id,
+        Name: formData.name,
+        Manufacturer: formData.manufacturer,
+        UnitPrice: Number(formData.unitPrice),
+        Discount: Number(formData.discount),
+        Quantity: Number(formData.quantity),
+        ExpiryDate: new Date(formData.expiryDate).toISOString(),
+      };
+
+      const res = await axios.put(
+        "https://ecommerencesite-api.onrender.com/api/MEDICINE/UpdateMedicine",
+        payload
+      );
+
+      if (res.data.status) {
+        setMedicines((prev) =>
+          prev.map((m) =>
+            m.id === id ? { ...m, ...formData } : m
+          )
+        );
+        setEditingMedicine(null);
+        alert("Updated successfully");
+      } else {
+        alert(res.data.responseMessage || "Update failed");
+      }
+    } catch {
+      alert("Update failed");
     }
-  } catch (error) {
-    console.error("Delete error:", error);
-    alert("Delete failed");
-  }
-};
+  };
 
+  // 🔹 DELETE MEDICINE
+  const handleDelete = async (id) => {
+    if (!window.confirm("Are you sure?")) return;
 
+    try {
+      const res = await axios.delete(
+        "https://ecommerencesite-api.onrender.com/api/MEDICINE/DeleteMedicine/" +
+          id
+      );
 
-  
-
+      if (res.data.status) {
+        setMedicines((prev) => prev.filter((m) => m.id !== id));
+        alert("Deleted successfully");
+      } else {
+        alert(res.data.responseMessage);
+      }
+    } catch {
+      alert("Delete failed");
+    }
+  };
 
   return (
     <div className="dashboard-container">
-
       {/* ---------- SIDEBAR ---------- */}
       <div className="sidebar">
         <a className="navbar-brand d-flex align-items-center" href="#">
           <img
             src="/AKMedizostore.png"
             alt="AKMedizostore"
-            style={{ width: "30px", height: "30px", marginRight: "8px" }}
+            style={{ width: 50, height: 50, marginRight: 8 }}
           />
           AKMedizostore
         </a>
-        <br></br>
 
         <ul className="menu">
           <Link to="/deshboard" className="btn btn-success">
-            AdminProfileMASTER
+            Admin Dashboard
           </Link>
-
           <br /><br />
 
           <Link to="/header" className="btn btn-success">
@@ -111,26 +160,28 @@ const [medicines, setMedicines] = useState([]);
         </ul>
       </div>
 
-      {/* ---------- PAGE CONTENT ---------- */}
+      {/* ---------- CONTENT ---------- */}
       <div className="content">
-
         <div className="topbar d-flex justify-content-between align-items-center">
           <h2>Medicines</h2>
-
           <Link to="/deshboard/medicines" className="btn btn-success">
             Add Medicine
           </Link>
         </div>
 
-        {/* ---------- searchbar ---------- */}
-
-         <div className="search-box">
-          <input type="text" placeholder="Search..." />
+        {/* ---------- SEARCH ---------- */}
+        <div className="search-box">
+          <input
+            type="text"
+            placeholder="Search by name or manufacturer..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
           <i className="bi bi-search"></i>
         </div>
-       {/* ---------- TABLE ---------- */}
 
-        <table className="table align-middle table-hover">
+        {/* ---------- TABLE ---------- */}
+        <table className="table table-hover align-middle">
           <thead>
             <tr>
               <th>Name</th>
@@ -143,59 +194,133 @@ const [medicines, setMedicines] = useState([]);
             </tr>
           </thead>
 
-        <tbody>
-  {medicines.length === 0 ? (
-    <tr>
-      <td colSpan="10" className="text-center">
-        No medicines found
-      </td>
-    </tr>
-  ) : (
-    medicines.map((med) => (
-                <tr key={med.id}>
-                   <td>{med.name}</td>
-                  <td>{med.manufacturer}</td>
-                  <td>{med.unitPrice}</td>
-                  <td>{med.discount}</td>
-                  <td>{med.quantity}</td>
+          <tbody>
+            {filteredMedicines.length === 0 ? (
+              <tr>
+                <td colSpan="7" className="text-center">
+                  No medicines found
+                </td>
+              </tr>
+            ) : (
+              filteredMedicines.map((med) => (
+                <tr
+                  key={med.id}
+                  className={
+                    editingMedicine === med.id ? "editing-row" : ""
+                  }
+                >
                   <td>
-                    {med.expiryDate
-                      ? new Date(med.expiryDate).toLocaleDateString()
-                      : "N/A"}
+                    {editingMedicine === med.id ? (
+                      <input
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                      />
+                    ) : (
+                      med.name
+                    )}
                   </td>
 
-
+                  <td>
+                    {editingMedicine === med.id ? (
+                      <input
+                        name="manufacturer"
+                        value={formData.manufacturer}
+                        onChange={handleChange}
+                      />
+                    ) : (
+                      med.manufacturer
+                    )}
+                  </td>
 
                   <td>
-               
-                     <button
-                  className="btn btn-primary btn-sm"
-                  onClick={() => handleEditClick(medicine)}
-                >
-                  Edit
-                </button>
-                    
-                    ||
-                  {/* <button className="btn btn-danger btn-sm">Delete</button> */}
-       <button
-                      className="btn btn-danger btn-sm"
-                      onClick={() => handleDelete(med.id)}
-                    >
-                      Delete
-                    </button>
+                    {editingMedicine === med.id ? (
+                      <input
+                        name="unitPrice"
+                        value={formData.unitPrice}
+                        onChange={handleChange}
+                      />
+                    ) : (
+                      med.unitPrice
+                    )}
+                  </td>
 
-                </td>
-      </tr>
-    ))
-  )}
-</tbody>
+                  <td>
+                    {editingMedicine === med.id ? (
+                      <input
+                        name="discount"
+                        value={formData.discount}
+                        onChange={handleChange}
+                      />
+                    ) : (
+                      med.discount
+                    )}
+                  </td>
 
+                  <td>
+                    {editingMedicine === med.id ? (
+                      <input
+                        name="quantity"
+                        value={formData.quantity}
+                        onChange={handleChange}
+                      />
+                    ) : (
+                      med.quantity
+                    )}
+                  </td>
+
+                  <td>
+                    {editingMedicine === med.id ? (
+                      <input
+                        type="date"
+                        name="expiryDate"
+                        value={formData.expiryDate}
+                        onChange={handleChange}
+                      />
+                    ) : (
+                      new Date(med.expiryDate).toLocaleDateString()
+                    )}
+                  </td>
+
+                  <td>
+                    {editingMedicine === med.id ? (
+                      <>
+                        <button
+                          className="btn btn-success btn-sm"
+                          onClick={() => handleUpdate(med.id)}
+                        >
+                          Update Medicine
+                        </button>{" "}
+                        <button
+                          className="btn btn-secondary btn-sm"
+                          onClick={() => setEditingMedicine(null)}
+                        >
+                          Cancel
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          className="btn btn-primary btn-sm"
+                          onClick={() => handleEditClick(med)}
+                        >
+                          Edit
+                        </button>{" "}
+                        <button
+                          className="btn btn-danger btn-sm"
+                          onClick={() => handleDelete(med.id)}
+                        >
+                          Delete
+                        </button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
         </table>
-      
-
       </div>
-
     </div>
   );
 }
-      
