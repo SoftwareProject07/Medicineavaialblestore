@@ -305,7 +305,7 @@ export default function Dashboard() {
                           onClick={() => handleEditClick(med)}
                         >
                           Edit
-                        </button>{" "}
+                        </button>{" "} ||
                         <button
                           className="btn btn-danger btn-sm"
                           onClick={() => handleDelete(med.id)}

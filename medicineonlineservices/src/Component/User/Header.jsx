@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/headers.css";
 import { Link } from "react-router-dom";
-
-// import "../styles/noscroll.css";
-
 export default function Header() {
-  const categories = [
+  const [search, setSearch] = useState("");
+ // searching the data
+ // 🔍 SEARCH FILTER LOGIC
+  // 🔹 SEARCH FILTER
+  // const filteredMedicines = medicines.filter(
+  //   (med) =>
+  //     med.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //     med.manufacturer.toLowerCase().includes(searchTerm.toLowerCase())
+  // );
+
+
+  const [location, setLocation] = useState({
+    city: "Detecting...",
+    pincode: "",
+  });
+  
+
+
+   const categories = [
     "Medicines",
     "Personal Care",
     "Health Conditions",
@@ -25,10 +40,69 @@ export default function Header() {
     { name: "Skin Ointment", price: 50 },
   ];
 
+// 🔍 SEARCH FILTER LOGIC
+const filteredMeds = meds.filter((med) =>
+  med?.name?.toLowerCase().includes(search.trim().toLowerCase())
+);
+
+  /* 🔹 Detect city by GPS */
+  useEffect(() => {
+    if (!navigator.geolocation) return;
+
+    navigator.geolocation.getCurrentPosition(async (pos) => {
+      try {
+        const { latitude, longitude } = pos.coords;
+        const res = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+        );
+        const data = await res.json();
+
+        setLocation({
+          city:
+            data.address.city ||
+            data.address.town ||
+            data.address.village ||
+            "Unknown",
+          pincode: data.address.postcode || "",
+        });
+      } catch {
+        setLocation({ city: "Unknown", pincode: "" });
+      }
+    });
+  }, []);
+
+  /* 🔹 PINCODE → CITY */
+  const handlePincodeChange = async (e) => {
+    const pin = e.target.value.replace(/\D/g, "");
+    setLocation((prev) => ({ ...prev, pincode: pin }));
+
+    if (pin.length === 6) {
+      try {
+        const res = await fetch(
+          `https://api.postalpincode.in/pincode/${pin}`
+        );
+        const data = await res.json();
+
+        if (data[0].Status === "Success") {
+          setLocation((prev) => ({
+            ...prev,
+            city: data[0].PostOffice[0].District,
+          }));
+        } else {
+          setLocation((prev) => ({ ...prev, city: "Invalid Pincode" }));
+        }
+      } catch {
+        setLocation((prev) => ({ ...prev, city: "Error" }));
+      }
+    }
+  };
+
   return (
     <>
       {/* NAVBAR */}
-      <nav className="navbar navbar-expand-lg navbar-light bg-light px-3 shadow-sm w-100">
+      {/* <nav className="navbar navbar-expand-lg navbar-light bg-light px-3 shadow-sm w-100"> */}
+      <nav className="navbar navbar-expand-lg navbar-light bg-light px-3 shadow-sm fixed-top w-100">
+
         <a className="navbar-brand d-flex align-items-center" href="#">
           <img
             src="/AKMedizostore.png"
@@ -77,8 +151,6 @@ Login / Signup
           </div>
         </div>
       </nav>
-
-      {/* HERO SECTION */}
       <section className="hero-section w-100" id="top">
         <div className="container text-center">
 
@@ -102,139 +174,117 @@ Login / Signup
               </button>
             ))}
           </div>
+          </div>
+    </section>
 
-          {/* SEARCH BAR */}
-          <div className="search-wrapper mx-auto shadow-sm rounded-pill">
-            <button className="btn btn-link text-dark px-3 d-flex align-items-center">
-              <span className="me-2">Deliver to</span>
-              <span className="fw-semibold">Mumbai, 400001</span>
-              <span className="ms-2">&#9662;</span>
-            </button>
+      {/* 🔍 SEARCH + LOCATION */}
+      <div className="search-wrapper d-flex align-items-center gap-2 p-3">
+        <button className="btn btn-link">
+          Deliver to <b>{location.city}</b>
+        </button>
 
-            <div className="vr" />
+        <input
+          type="text"
+          placeholder="Pincode"
+          value={location.pincode}
+          maxLength={6}
+          onChange={handlePincodeChange}
+          className="form-control"
+          style={{ width: "120px" }}
+        />
+{/* <div className="search-wrapper d-flex "> */}
+        <input
+          type="text"
+          placeholder="Search medicines"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="form-control"
+        />
+</div>
+{/* </div> */}
+        {/* <input
+            type="text"
+            placeholder="Search by name or manufacturer..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <i className="bi bi-search"></i>
+              </div>
+              */}
+{filteredMeds.map((name)=> (
+  <div className="col-md-4 mb-3">
+    <div className="card h-100">
+    
+    </div>
+  </div>
+ ))} 
 
-            <input
-              type="text"
-              className="form-control border-0 ms-2"
-              placeholder="Search for medicines"
+
+      {/* 📦 ORDER VIA */}
+      <div className="mt-5 text-center">
+        <p className="text-uppercase text-muted mb-3">
+          Place your order via
+        </p>
+
+        <div className="d-flex justify-content-center flex-wrap gap-3">
+          <button className="btn btn-light shadow-sm">
+            <img
+              src="/doctor.png"
+              alt="doctor"
+              style={{ width: "80px" }}
             />
+          </button>
 
-            <button className="btn btn-primary search-btn" type="button">
-              🔍
-            </button>
-          </div>
+          <button className="btn btn-light shadow-sm">
+            📞 Call 08046800924
+          </button>
 
-          {/* ORDER VIA */}
-          <div className="mt-5">
-            <p className="text-uppercase text-muted mb-3 order-title">
-              Place your order via
-            </p>
-
-            <div className="d-flex justify-content-center flex-wrap gap-3">
-
-              {/* Doctor Image */}
-              <button className="btn btn-light shadow-sm order-btn d-flex align-items-center">
-                <img 
-                  src="/doctor.png"
-                  alt="doctor"
-                  style={{ width: "100px", height: "100px", marginRight: "100px" }}
-                />
-              </button>
-
-              {/* Call Button */}
-              <button className="btn btn-light shadow-sm order-btn d-flex align-items-center">
-                📞 Call 08046800924 to place order
-              </button>
-
-              {/* Upload Button */}
-              <button className="btn btn-light shadow-sm order-btn">
-                ⬆️ Upload a prescription
-              </button>
-
-            </div>
-          </div>
+          <button className="btn btn-light shadow-sm">
+            ⬆️ Upload prescription
+          </button>
         </div>
-      </section>
+      </div>
 
-      {/* SUBSTITUTE SECTION (FULL TRUE-MEDS BLOCK) */}
-      <section className="substitute-box container my-5">
-        <div className="row align-items-center">
 
-          {/* LEFT DOCTOR BANNER */}
-          <div className="col-md-5">
-            <div className="doctor-banner">
-              <img src="/doctorpurple.png" className="img-fluid doctor-img" />
-
-              <div className="play-btn">▶</div>
-            </div>
-          </div>
-
-          {/* RIGHT CONTENT */}
-          <div className="col-md-7">
-            <div className="d-flex justify-content-between align-items-start">
-              <h4 className="fw-bold">Substitutes are the smarter choice</h4>
-              <a href="#" className="text-primary fw-semibold">Learn more</a>
-            </div>
-
-            <div className="row mt-3 text-center">
-              <div className="col-4">
-                <img src="/safe.png" className="icon-img" />
-                <h6 className="fw-bold mt-2">Safe</h6>
-                <p className="text-muted small">FDA and GMP certified<br />medicines</p>
-              </div>
-
-              <div className="col-4">
-                <img src="/same.png" className="icon-img" />
-                <h6 className="fw-bold mt-2">Same</h6>
-                <p className="text-muted small">Exact same<br />salt composition</p>
-              </div>
-
-              <div className="col-4">
-                <img src="/savings.png" className="icon-img" />
-                <h6 className="fw-bold mt-2">Savings</h6>
-                <p className="text-muted small">Up to 51%<br />cheaper</p>
-              </div>
-            </div>
-
-            <div className="yellow-box mt-3">
-              ⭐ All Substitutes are made by <b>top 1% medicine manufacturers</b>
-            </div>
-
-            <div className="text-center mt-3">
-              <a href="#" className="text-primary fw-semibold">View Example →</a>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* MEDICINE GRID */}
-      <div className="container mt-4" id="medicineOrder">
-        <h3 className="mb-3">All Medicines</h3>
+      {/* 💊 MEDICINE GRID */}
+      <div className="container mt-4">
+        <h3>All Medicines</h3>
 
         <div className="row">
           {meds.map((med, index) => (
-            <div className="col-md-4 mb-4" key={index}>
+            <div className="col-md-4 mb-3" key={index}>
               <div className="card h-100">
                 <img
                   src="https://via.placeholder.com/200"
-                  className="card-img-top img-fluid"
+                  className="card-img-top"
                   alt={med.name}
                 />
-                <div className="card-body d-flex flex-column">
-                  <h5 className="card-title">{med.name}</h5>
-                  <p className="mb-3">Price: ₹{med.price}</p>
-                  <button className="btn btn-primary mt-auto w-100">
+                <div className="card-body">
+                  <h5>{med.name}</h5>
+                  <p>₹{med.price}</p>
+                  <button className="btn btn-primary w-100">
                     Add to Cart
                   </button>
                 </div>
               </div>
             </div>
+           
+            //serch div
           ))}
+
         </div>
-
+        
       </div>
-
     </>
   );
 }
+
+{/* ❌ No Data Found */}
+    // {filteredMeds.length === 0 && (
+    //   <div className="col-12 text-center">
+    //     <p className="text-muted fs-5 mt-3">
+    //       No medicine found
+    //     </p>
+    //   </div>
+    // )}
+  
