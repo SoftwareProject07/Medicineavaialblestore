@@ -1,6 +1,6 @@
 import React from "react";
 import { HashRouter } from "react-router-dom";
-import "../src/component/styles/noscroll.css";
+// import "../component/styles/noscroll.css";
 
 
 import ReactDOM from "react-dom/client";

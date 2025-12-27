@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../styles/headers.css";
 import { Link } from "react-router-dom";
-// import "../styles/noscroll.css";
+import "../styles/noscroll.css";
 
 export default function Header() {
   const [search, setSearch] = useState("");
@@ -13,7 +13,7 @@ export default function Header() {
   //     med.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
   //     med.manufacturer.toLowerCase().includes(searchTerm.toLowerCase())
   // );
-
+// fjjfj
 
   const [location, setLocation] = useState({
     city: "Detecting...",

@@ -16,6 +16,7 @@ export default function Dashboard() {
     discount: "",
     quantity: "",
     expiryDate: "",
+    imageurl: "",
   });
 
   // 🔹 Normalize API response
@@ -28,6 +29,8 @@ export default function Dashboard() {
       discount: m.discount ?? m.Discount,
       quantity: m.quantity ?? m.Quantity,
       expiryDate: m.expiryDate ?? m.ExpiryDate,
+      imageurl:m.imageurl?? m.IMAGEURL,
+
     }));
 
   // 🔹 GET MEDICINES
@@ -62,6 +65,7 @@ export default function Dashboard() {
       discount: med.discount,
       quantity: med.quantity,
       expiryDate: med.expiryDate?.split("T")[0],
+      imageurl:med.imageurl
     });
   };
 
@@ -82,6 +86,7 @@ export default function Dashboard() {
         Discount: Number(formData.discount),
         Quantity: Number(formData.quantity),
         ExpiryDate: new Date(formData.expiryDate).toISOString(),
+        IMAGEURL: formData.imageurl
       };
 
       const res = await axios.put(
@@ -191,6 +196,7 @@ export default function Dashboard() {
               <th>Discount</th>
               <th>Quantity</th>
               <th>Expiry Date</th>
+              <th>MedicinePhoto</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -280,6 +286,18 @@ export default function Dashboard() {
                       />
                     ) : (
                       new Date(med.expiryDate).toLocaleDateString()
+                    )}
+                  </td>
+                    <td>
+                    {editingMedicine === med.id ? (
+                      <input
+                        type="file "
+                        name="imageurl"
+                        value={formData.imageurl}
+                        onChange={handleChange}
+                      />
+                    ) : (
+                      med.imageurl
                     )}
                   </td>
 
