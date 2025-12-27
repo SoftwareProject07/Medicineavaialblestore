@@ -124,16 +124,7 @@ th, td {
 }
 
 
- /* .navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 70px;
-  background-color: white;
-  z-index: 9999;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-} */
+
 /* navbar fixed the content  */
 
 body {
@@ -143,4 +134,6 @@ body {
   position: sticky;
   top: 0;
   z-index: 1030;
+    /* z-index: 1000; */
+
 }

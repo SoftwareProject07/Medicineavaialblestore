@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../styles/headers.css";
 import { Link } from "react-router-dom";
+// import "../styles/noscroll.css";
+
 export default function Header() {
   const [search, setSearch] = useState("");
  // searching the data

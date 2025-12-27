@@ -12,9 +12,10 @@ export default function Medicine() {
   const [discount, setDiscount] = useState("");
   const [quantity, setQuantity] = useState("");
   const [expiryDate, setExpiryDate] = useState(""); // ✅ FIX
+  const [imageurl , setImageUrl]=useState("");
 
   const handleSave = async () => {
-    if ( !name || !manufacturer || !unitPrice || !quantity || !expiryDate) {
+    if ( !name || !manufacturer || !unitPrice || !quantity || !expiryDate|| !imageurl) {
       alert("Please fill all required fields");
       return;
     }
@@ -27,6 +28,7 @@ export default function Medicine() {
       discount: Number(discount || 0),
       quantity: Number(quantity),
       expiryDate: expiryDate, // yyyy-mm-dd
+    imageurl:imageurl,
       status: 1 // ✅ IMPORTANT
     };
 
@@ -59,9 +61,10 @@ export default function Medicine() {
           <input type="number" placeholder="Discount" value={discount} onChange={e => setDiscount(e.target.value)} />
           <input type="number" placeholder="Quantity" value={quantity} onChange={e => setQuantity(e.target.value)} />
           <input type="date" value={expiryDate} onChange={e => setExpiryDate(e.target.value)} />
+                    <input type="file" value={imageurl} onChange={e => setImageUrl(e.target.value)} />
 
           <button className="btn btn-success w-100" onClick={handleSave}>
-            Add Medicine
+            Add Medicines
           </button>
 
 

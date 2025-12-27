@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../styles/deshboards.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "../styles/noscroll.css";
 
 export default function Dashboard() {
   const [medicines, setMedicines] = useState([]);

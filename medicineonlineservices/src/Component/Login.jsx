@@ -6,7 +6,7 @@ import "./styles/logins.css";
 
 
 export default function Login() {
-  const token = localStorage.getItem("token");
+ // const token = localStorage.getItem("token");
 
   const navigate = useNavigate();
 
